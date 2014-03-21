@@ -3,6 +3,8 @@ package org.gradle;
 public class AssessFee {
 
 	private float invoice;
+	public float getInvoice() { return this.invoice; }
+	public void setInvoice(float pInvoice) {this.invoice = pInvoice; }
 	
 	public AssessFee() {}
 	public AssessFee(float pInvoice)
