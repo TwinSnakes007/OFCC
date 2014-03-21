@@ -8,13 +8,13 @@ public class AssessFeeTest {
 	
     @Test
     public void noFee() {
-        assertEquals(0.0f, assessor.fee(), 0.0f);
+        assertEquals(0.0f, assessor.fee(0), 0.0f);
     }
     
     @Test
     public void feeFor600k() {
-    	assessor.setInvoice(600000);
-    	assertEquals(65000, assessor.fee(), 0.0f);
+    	assessor.setInvoice(200000);
+    	assertEquals(15000, assessor.fee(400000), 0.0f);
     }
     
 }

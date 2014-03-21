@@ -2,39 +2,33 @@ package org.gradle;
 
 public class RangedFee implements IFee {
 	
-	private double lowerRange = 0, upperRange = 0, rate = 0;
+	private double lowerRange = 0, upperRange = 0, rate = 0, existingCostBasis = 0;
 	
-	public RangedFee(double pRate, double pLowerRange, double pUpperRange)
+	public RangedFee(double pRate, double pLowerRange, double pUpperRange, double pExistingCostBasis)
 	{
 		this.lowerRange = pLowerRange;
 		this.upperRange = pUpperRange;
+		this.existingCostBasis = pExistingCostBasis;
 		this.rate = pRate;
 	}
 
 	public double assessFee(double invoice) {
-		double adjustedInvoice = 0;
+		double adjustedInvoice = invoice + existingCostBasis;
 		
 		if (invoice == 0) return 0;
+		else if (existingCostBasis > upperRange) return 0;
 		
-		if (invoice > lowerRange || invoice > upperRange)
+		if (adjustedInvoice > lowerRange)
 		{
-			if (invoice > upperRange)
-				adjustedInvoice = upperRange - lowerRange;
+			if (adjustedInvoice > upperRange)
+				adjustedInvoice = upperRange - existingCostBasis > 0 ? upperRange - existingCostBasis : 0;
 			else
-				adjustedInvoice = upperRange - invoice;
+			{
+				adjustedInvoice = invoice > lowerRange ? lowerRange - existingCostBasis : ( invoice - existingCostBasis > 0 ? invoice - existingCostBasis : 0 );
+			}
 		}
 
 		return rate * adjustedInvoice;
 	}
 
 }
-
-
-/*
- * 		over500k = invoice > 500000.00 ? invoice - 500000.00 : 0;
-		between100and500k = invoice > 100000 && invoice < 5000000 ? ( invoice > 500000 ? 400000 : 500000 - invoice  ) : 0;
-		under100k = invoice > 100000.00 ? 100000 : invoice;
-
-		fee = (under100k * 0.2) + (between100and500k * 0.1) + (over500k * 0.05);
-		
-*/

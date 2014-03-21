@@ -15,14 +15,14 @@ public class AssessFee {
 		invoice = pInvoice;
 	}
 	
-	public double fee()
+	public double fee(double existingCostBasis)
 	{
 		List<IFee> fees = new ArrayList<IFee>();
 		double fee = 0;
 		
-		fees.add(new LowerFee(0.2, 100000));
-		fees.add(new RangedFee(0.1, 100000, 500000));
-		fees.add(new UpperFee(0.05, 500000));
+		fees.add(new LowerFee(0.2, 100000, existingCostBasis));
+		fees.add(new RangedFee(0.1, 100000, 500000, existingCostBasis));
+		fees.add(new UpperFee(0.05, 500000, existingCostBasis));
 		
 		for (IFee iFee : fees) {
 			fee += iFee.assessFee(invoice);
