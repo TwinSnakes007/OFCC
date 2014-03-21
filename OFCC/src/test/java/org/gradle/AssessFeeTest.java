@@ -12,14 +12,9 @@ public class AssessFeeTest {
     }
     
     @Test
-    public void feeFor50k() {
-    	assessor.setInvoice(50000.00f);
-    	assertEquals(10000.0f, assessor.fee(), 0.0f);
+    public void feeFor600k() {
+    	assessor.setInvoice(600000);
+    	assertEquals(65000, assessor.fee(), 0.0f);
     }
     
-    @Test
-    public void feeFor200k() {
-    	assessor.setInvoice(200000.00f);
-    	assertEquals(30000.00f, assessor.fee(), 0.0f);
-    }
 }
