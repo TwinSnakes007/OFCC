@@ -1,0 +1,7 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<testsuite name="org.gradle.AssessFeeTest" tests="1" failures="0" errors="0" timestamp="2014-03-21T02:08:04" hostname="dunlap-laptop" time="0.003">
+  <properties/>
+  <testcase name="noFee" classname="org.gradle.AssessFeeTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
