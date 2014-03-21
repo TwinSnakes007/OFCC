@@ -1,5 +1,8 @@
 package org.gradle;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AssessFee {
 
 	private double invoice;	
@@ -14,16 +17,16 @@ public class AssessFee {
 	
 	public double fee()
 	{
+		List<IFee> fees = new ArrayList<IFee>();
 		double fee = 0;
-		double under100k, between100and500k, over500k;
 		
-		if (invoice == 0) return fee;
+		fees.add(new LowerFee(0.2, 100000));
+		fees.add(new RangedFee(0.1, 100000, 500000));
+		fees.add(new UpperFee(0.05, 500000));
 		
-		over500k = invoice > 500000.00 ? invoice - 500000.00 : 0;
-		between100and500k = invoice > 100000 && invoice < 5000000 ? ( invoice > 500000 ? 400000 : 500000 - invoice  ) : 0;
-		under100k = invoice > 100000.00 ? 100000 : invoice;
-		
-		fee = (under100k * 0.2) + (between100and500k * 0.1) + (over500k * 0.05);
+		for (IFee iFee : fees) {
+			fee += iFee.assessFee(invoice);
+		}
 		
 		return fee;
 	}
